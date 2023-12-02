@@ -1,29 +1,24 @@
-import {
-	dayOneSolutionOne,
-	dayOneSolutionTwo,
-} from "./solutions/day-one/index";
+import { dayOneAnswers } from "./solutions/day-one/index";
+import { dayTwoAnswers } from "./solutions/day-two/index";
 
 interface Solution {
 	Day: number;
-	"Solution One": string | number | null;
-	"Solution Two": string | number | null;
+	solutionOne: string | number | null;
+	solutionTwo: string | number | null;
 }
 
 const solutions: Solution[] = [
 	{
 		Day: 1,
-		"Solution One": dayOneSolutionOne(),
-		"Solution Two": dayOneSolutionTwo(),
+		...dayOneAnswers(),
+	},
+	{
+		Day: 2,
+		...dayTwoAnswers(),
 	},
 	// {
-	// 	Day: 2,
-	// 	"Solution One": dayOneSolutionOne(),
-	// 	"Solution Two": dayOneSolutionTwo(),
-	// },
-	// {
 	// 	Day: 3,
-	// 	"Solution One": dayOneSolutionOne(),
-	// 	"Solution Two": dayOneSolutionTwo(),
+	// ...dayThreeAnswers(),
 	// },
 	// {
 	// 	Day: 4,

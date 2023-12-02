@@ -38,13 +38,13 @@ const getCalibration = (lines: string[]) => {
 		.reduce((acc, curr) => acc + curr, 0);
 };
 
-export const dayOneSolutionOne = (): number => {
+const solutionOne = (): number => {
 	const calibrationLines = readAndSplitFile("day-one").split("\n");
 
 	return getCalibration(calibrationLines);
 };
 
-export const dayOneSolutionTwo = (): number | string => {
+const solutionTwo = (): number => {
 	let calibrationString = readAndSplitFile("day-one");
 
 	for (const [key, value] of Object.entries(numberMap)) {
@@ -52,4 +52,11 @@ export const dayOneSolutionTwo = (): number | string => {
 	}
 
 	return getCalibration(calibrationString.split("\n"));
+};
+
+export const dayOneAnswers = () => {
+	return {
+		solutionOne: solutionOne(),
+		solutionTwo: solutionTwo(),
+	};
 };
