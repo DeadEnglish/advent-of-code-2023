@@ -129,11 +129,11 @@ const solutionTwo = () => {
 	symbols.forEach((symCoord) => {
 		const { index, row } = symCoord;
 		const adjacentNumbers = numbers.filter(
-			(nomCoord) =>
-				nomCoord.row >= row - 1 &&
-				nomCoord.row <= row + 1 &&
-				nomCoord.start - 1 <= index &&
-				nomCoord.end + 1 >= index
+			(numCoord) =>
+				numCoord.row >= row - 1 &&
+				numCoord.row <= row + 1 &&
+				numCoord.start - 1 <= index &&
+				numCoord.end + 1 >= index
 		);
 
 		if (adjacentNumbers.length === 2) {
