@@ -1,5 +1,6 @@
 import { dayOneAnswers } from "./solutions/day-one/index";
 import { dayTwoAnswers } from "./solutions/day-two/index";
+import { dayThreeAnswers } from "./solutions/day-three/index";
 
 interface Solution {
 	Day: number;
@@ -16,10 +17,10 @@ const solutions: Solution[] = [
 		Day: 2,
 		...dayTwoAnswers(),
 	},
-	// {
-	// 	Day: 3,
-	// ...dayThreeAnswers(),
-	// },
+	{
+		Day: 3,
+		...dayThreeAnswers(),
+	},
 	// {
 	// 	Day: 4,
 	// 	"Solution One": dayOneSolutionOne(),
