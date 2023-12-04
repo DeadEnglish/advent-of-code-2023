@@ -1,6 +1,7 @@
-import { dayOneAnswers } from "./solutions/day-one/index";
-import { dayTwoAnswers } from "./solutions/day-two/index";
-import { dayThreeAnswers } from "./solutions/day-three/index";
+import { dayOneAnswers } from "./solutions/day-1/index";
+import { dayTwoAnswers } from "./solutions/day-2/index";
+import { dayThreeAnswers } from "./solutions/day-3/index";
+import { dayFourAnswers } from "./solutions/day-4/index";
 
 interface Solution {
 	Day: number;
@@ -21,11 +22,10 @@ const solutions: Solution[] = [
 		Day: 3,
 		...dayThreeAnswers(),
 	},
-	// {
-	// 	Day: 4,
-	// 	"Solution One": dayOneSolutionOne(),
-	// 	"Solution Two": dayOneSolutionTwo(),
-	// },
+	{
+		Day: 4,
+		...dayFourAnswers(),
+	},
 ];
 
 console.table(solutions);
