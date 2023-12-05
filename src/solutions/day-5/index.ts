@@ -16,7 +16,7 @@ const parsedStages = stages.map((stage) => {
 		return {
 			destinationStart,
 			sourceStart,
-			range: sourceStart + rangeLength - 1,
+			rangeLength,
 		};
 	});
 });
@@ -24,7 +24,9 @@ const parsedStages = stages.map((stage) => {
 const solutionOne = () => {
 	const locationsFromSeed = seeds.map((seed) => {
 		return parsedStages.reduce((curr, stage) => {
-			const currStage = stage.find((stage) => stage.sourceStart <= curr && stage.range >= curr);
+			const currStage = stage.find(
+				(stage) => stage.sourceStart <= curr && stage.sourceStart + stage.rangeLength >= curr
+			);
 			if (!currStage) return curr;
 			return currStage.destinationStart + (curr - currStage.sourceStart);
 		}, seed);
@@ -33,31 +35,42 @@ const solutionOne = () => {
 	return Math.min(...locationsFromSeed);
 };
 const solutionTwo = () => {
-	const splitSeeds = [
-		...new Set(
-			seeds
-				.flatMap((seed, index) => {
-					if (index % 2 === 0) return;
-					const start = seeds[index - 1];
-					const finish = seeds[index - 1] + seed;
-					return Array.from({ length: finish - start + 1 }, (_, a) => a + start);
-				})
-				.map(Number)
-				.filter(Boolean)
-		),
-	];
+	const seedRanges = seeds
+		.map((seed, index) => {
+			if ((index + 1) % 2 === 0) return;
+			return [seed, seeds[index + 1]];
+		})
+		.filter(Boolean) as number[][];
 
-	console.log({ seedTotal: splitSeeds.length });
+	const checkSeed = (seed: number) => seedRanges.some(([start, end]) => seed >= start && seed <= start + end);
 
-	const locationsFromSeed = splitSeeds.map((seed) => {
-		return parsedStages.reduce((curr, stage) => {
-			const currStage = stage.find((stage) => stage.sourceStart <= curr && stage.range >= curr);
-			if (!currStage) return curr;
-			return currStage.destinationStart + (curr - currStage.sourceStart);
-		}, seed);
-	});
+	const isPotentialSeed = (location: number) => {
+		return parsedStages
+			.slice()
+			.reverse()
+			.reduce((curr, stage) => {
+				const currStage = stage.find(
+					(stage) => stage.destinationStart <= curr && stage.destinationStart + stage.rangeLength > curr
+				);
+				if (!currStage) return curr;
+				return currStage.sourceStart + (curr - currStage.destinationStart);
+			}, location);
+	};
 
-	return Math.min(...locationsFromSeed);
+	let location = 0;
+	let loopCount = 0;
+
+	while (location === 0) {
+		const seed = isPotentialSeed(loopCount);
+		if (!seed) continue;
+
+		if (checkSeed(seed)) {
+			location = loopCount;
+			break;
+		}
+		loopCount++;
+	}
+	return location;
 };
 
 export const dayFiveAnswers = () => {
