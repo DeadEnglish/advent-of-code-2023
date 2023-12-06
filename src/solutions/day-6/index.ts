@@ -18,8 +18,34 @@ const solutionOne = () => {
 		return acc * canWin;
 	}, 1);
 };
+
 const solutionTwo = () => {
-	return "todo";
+	const totalTime = Number(
+		races[0]
+			.split(":")[1]
+			.split(/\D+/)
+			.filter(Boolean)
+			.reduce((acc, curr) => acc + curr, "")
+	);
+	const totalDistance = Number(
+		races[1]
+			.split(":")[1]
+			.split(/\D+/)
+			.filter(Boolean)
+			.reduce((acc, curr) => acc + curr, "")
+	);
+
+	let canWin = 0;
+	for (let i = 0; i < totalTime; i++) {
+		if (i === 0) continue;
+		const travelSpeed = 1 * i;
+		const timeRemaining = totalTime - i;
+		if (travelSpeed * timeRemaining > totalDistance) {
+			canWin++;
+		}
+	}
+
+	return canWin;
 };
 
 export const daySixAnswers = () => {
