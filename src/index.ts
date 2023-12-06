@@ -2,6 +2,7 @@ import { dayOneAnswers } from "./solutions/day-1/index";
 import { dayTwoAnswers } from "./solutions/day-2/index";
 import { dayThreeAnswers } from "./solutions/day-3/index";
 import { dayFourAnswers } from "./solutions/day-4/index";
+import { daySixAnswers } from "./solutions/day-6/index";
 
 interface Solution {
 	Day: number;
@@ -30,6 +31,10 @@ const solutions: Solution[] = [
 		Day: 5,
 		solutionOne: "very un optimized",
 		solutionTwo: "very un optimized",
+	},
+	{
+		Day: 6,
+		...daySixAnswers(),
 	},
 ];
 
