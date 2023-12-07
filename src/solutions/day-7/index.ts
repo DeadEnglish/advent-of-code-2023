@@ -9,24 +9,35 @@ interface Hand {
 const cards = readAndSplitFile("day-seven").split("\n");
 
 const cardOrder = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"];
+const part2CardOrder = ["J", "2", "3", "4", "5", "6", "7", "8", "9", "T", "Q", "K", "A"];
 
-const createHandRank = (cards: string): number => {
-	const cardCount: { [card: string]: number } = {};
+const createHandRank =
+	(isPart2: boolean = false) =>
+	(cards: string): number => {
+		const cardCount: { [card: string]: number } = {};
 
-	cards.split("").forEach((card) => {
-		cardCount[card] = (cardCount[card] || 0) + 1;
+		let joker = 0;
+		cards.split("").forEach((card) => {
+			cardCount[card] = (cardCount[card] || 0) + 1;
+		});
+
+		if (isPart2) {
+			joker = cardCount["J"] || 0;
+			delete cardCount["J"];
+		}
+
+		const orderedCount = Object.values(cardCount).sort((a, b) => b - a);
+
+		return ((orderedCount[0] || 0) + joker) * 5 + (orderedCount[1] || 0);
+	};
+
+const parseHand =
+	(isPart2: boolean = false) =>
+	(cards: string, bid: string): Hand => ({
+		cardValues: cards.split("").map((card) => (isPart2 ? part2CardOrder.indexOf(card) : cardOrder.indexOf(card))),
+		bid: Number(bid),
+		rank: createHandRank(isPart2)(cards),
 	});
-
-	const orderedCount = Object.values(cardCount).sort((a, b) => b - a);
-
-	return orderedCount[0] * 5 + (orderedCount[1] || 0);
-};
-
-const parseHand = (cards: string, bid: string): Hand => ({
-	cardValues: cards.split("").map((card) => cardOrder.indexOf(card)),
-	bid: Number(bid),
-	rank: createHandRank(cards),
-});
 
 const sortHands = (cardA: Hand, cardB: Hand) => {
 	if (cardA.rank !== cardB.rank) return cardA.rank - cardB.rank;
@@ -44,14 +55,20 @@ const solutionOne = () => {
 	return cards
 		.map((card) => {
 			const [cards, bid] = card.split(" ");
-			return parseHand(cards, bid);
+			return parseHand()(cards, bid);
 		})
 		.sort(sortHands)
 		.reduce((acc, curr, currIndex) => acc + curr.bid * (currIndex + 1), 0);
 };
 
 const solutionTwo = () => {
-	return "todo";
+	return cards
+		.map((card) => {
+			const [cards, bid] = card.split(" ");
+			return parseHand(true)(cards, bid);
+		})
+		.sort(sortHands)
+		.reduce((acc, curr, currIndex) => acc + curr.bid * (currIndex + 1), 0);
 };
 
 export const daySevenAnswers = () => {
