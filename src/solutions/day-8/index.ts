@@ -45,12 +45,33 @@ const solutionOne = () => {
 };
 
 const solutionTwo = () => {
-	return "todo";
+	const map = mapTheMap(splitMap);
+	const nodes = map.filter((direction) => /A$/.test(direction.destination)).map((direction) => direction.destination);
+
+	let stepCount = 0;
+	let destinationFound = false;
+
+	// can't force those
+	while (!destinationFound) {
+		splitDirections.forEach((direction) => {
+			nodes.forEach((node, index) => {
+				const nextNode = getNextDestination(node, direction, map);
+				nodes[index] = nextNode;
+			});
+			stepCount++;
+
+			if (nodes.every((node) => /Z$/.test(node))) {
+				destinationFound = true;
+			}
+		});
+	}
+
+	return stepCount;
 };
 
 export const dayEightAnswers = () => {
 	return {
-		solutionOne: solutionOne(),
+		solutionOne: "todo",
 		solutionTwo: solutionTwo(),
 	};
 };
