@@ -20,6 +20,28 @@ const getNextDestination = (currentDestination: string, instruction: string, map
 	return map.find((destination) => destination.destination === currentDestination)!.directions[directionIndex]!;
 };
 
+const gcd = (a: number, b: number): number => {
+	return b === 0 ? a : gcd(b, a % b);
+};
+
+const lcm = (a: number, b: number): number => {
+	return (a * b) / gcd(a, b);
+};
+
+const findLCM = (numbers: number[]): number => {
+	if (numbers.length < 2) {
+		throw new Error("At least two numbers are required");
+	}
+
+	let result = numbers[0];
+
+	for (let i = 1; i < numbers.length; i++) {
+		result = lcm(result, numbers[i]);
+	}
+
+	return result;
+};
+
 const solutionOne = () => {
 	const map = mapTheMap(splitMap);
 	const startDestination = "AAA";
@@ -48,30 +70,29 @@ const solutionTwo = () => {
 	const map = mapTheMap(splitMap);
 	const nodes = map.filter((direction) => /A$/.test(direction.destination)).map((direction) => direction.destination);
 
-	let stepCount = 0;
-	let destinationFound = false;
+	const stepsToEnd: number[] = [];
 
-	// can't force those
-	while (!destinationFound) {
-		splitDirections.forEach((direction) => {
-			nodes.forEach((node, index) => {
-				const nextNode = getNextDestination(node, direction, map);
-				nodes[index] = nextNode;
+	nodes.forEach((node) => {
+		let stepCount = 0;
+		let nextDestination = "";
+
+		while (!/Z$/.test(nextDestination)) {
+			splitDirections.forEach((direction) => {
+				const currentDest = stepCount === 0 ? node : nextDestination;
+				nextDestination = getNextDestination(currentDest, direction, map);
+				stepCount++;
 			});
-			stepCount++;
+		}
 
-			if (nodes.every((node) => /Z$/.test(node))) {
-				destinationFound = true;
-			}
-		});
-	}
+		stepsToEnd.push(stepCount);
+	});
 
-	return stepCount;
+	return findLCM(stepsToEnd);
 };
 
 export const dayEightAnswers = () => {
 	return {
-		solutionOne: "todo",
+		solutionOne: solutionOne(),
 		solutionTwo: solutionTwo(),
 	};
 };
