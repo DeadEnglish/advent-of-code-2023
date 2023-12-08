@@ -4,6 +4,7 @@ import { dayThreeAnswers } from "./solutions/day-3/index";
 import { dayFourAnswers } from "./solutions/day-4/index";
 import { daySixAnswers } from "./solutions/day-6/index";
 import { daySevenAnswers } from "./solutions/day-7/index";
+import { dayEightAnswers } from "./solutions/day-8/index";
 
 interface Solution {
 	Day: number;
@@ -40,6 +41,10 @@ const solutions: Solution[] = [
 	{
 		Day: 7,
 		...daySevenAnswers(),
+	},
+	{
+		Day: 8,
+		...dayEightAnswers(),
 	},
 ];
 
