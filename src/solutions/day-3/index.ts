@@ -1,4 +1,4 @@
-import { readAndSplitFile } from "../../helpers/readFile.helper";
+import { readFile } from "../../helpers/readFile.helper";
 
 const adjacentCoords = [
 	[0, -1],
@@ -16,7 +16,7 @@ const isDigit = (char: string) => digitRegex.test(char);
 const isSymbol = (char: string) => char !== "." && !isDigit(char);
 const isGear = (char: string) => char === "*";
 
-const schematic = readAndSplitFile("day-three").split("\n");
+const schematic = readFile("day-3").split("\n");
 
 const solutionOne = () => {
 	let schematicTotal = 0;
@@ -37,9 +37,7 @@ const solutionOne = () => {
 					return adjacentRow[rowIndex + x];
 				});
 
-				const adjacentSymbols = adjacentRows.filter(
-					(adj) => adj && isSymbol(adj)
-				).length;
+				const adjacentSymbols = adjacentRows.filter((adj) => adj && isSymbol(adj)).length;
 
 				if (adjacentSymbols !== 0) {
 					hasAdjacentSymbol = true;
@@ -86,14 +84,11 @@ export const createCoordinates = (rows: string[]) => {
 			if (char === ".") continue;
 
 			if (isDigit(char)) {
-				const currentNumberIndex = numbers.findIndex(
-					({ end, row }) => i === row && end === charIndex - 1
-				);
+				const currentNumberIndex = numbers.findIndex(({ end, row }) => i === row && end === charIndex - 1);
 				if (currentNumberIndex > -1) {
 					numbers[currentNumberIndex].end = charIndex;
 
-					numbers[currentNumberIndex].number =
-						numbers[currentNumberIndex].number + char;
+					numbers[currentNumberIndex].number = numbers[currentNumberIndex].number + char;
 				} else {
 					numbers.push({
 						number: char,
@@ -137,9 +132,7 @@ const solutionTwo = () => {
 		);
 
 		if (adjacentNumbers.length === 2) {
-			gearRatio +=
-				parseInt(adjacentNumbers[0].number) *
-				parseInt(adjacentNumbers[1].number);
+			gearRatio += parseInt(adjacentNumbers[0].number) * parseInt(adjacentNumbers[1].number);
 		}
 	}, 0);
 

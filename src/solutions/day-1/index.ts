@@ -1,4 +1,4 @@
-import { readAndSplitFile } from "../../helpers/readFile.helper";
+import { readFile } from "../../helpers/readFile.helper";
 
 const numberMap: { [key: string]: number } = {
 	twone: 21,
@@ -39,13 +39,13 @@ const getCalibration = (lines: string[]) => {
 };
 
 const solutionOne = (): number => {
-	const calibrationLines = readAndSplitFile("day-one").split("\n");
+	const calibrationLines = readFile("day-1").split("\n");
 
 	return getCalibration(calibrationLines);
 };
 
 const solutionTwo = (): number => {
-	let calibrationString = readAndSplitFile("day-one");
+	let calibrationString = readFile("day-1");
 
 	for (const [key, value] of Object.entries(numberMap)) {
 		calibrationString = calibrationString.replaceAll(key, value.toString());

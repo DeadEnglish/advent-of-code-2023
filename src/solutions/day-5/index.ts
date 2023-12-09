@@ -1,6 +1,6 @@
-import { readAndSplitFile } from "../../helpers/readFile.helper";
+import { readFile } from "../../helpers/readFile.helper";
 
-const almanac = readAndSplitFile("day-five").split("\n\n");
+const almanac = readFile("day-5").split("\n\n");
 
 const seeds = almanac[0].split(":")[1].trim().split(" ").map(Number);
 const stages = almanac.slice(1).map((stage) =>

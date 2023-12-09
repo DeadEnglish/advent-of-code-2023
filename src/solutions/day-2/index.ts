@@ -1,4 +1,4 @@
-import { readAndSplitFile } from "../../helpers/readFile.helper";
+import { readFile } from "../../helpers/readFile.helper";
 
 type Colours = "red" | "green" | "blue";
 
@@ -10,7 +10,7 @@ const maxCubes: Record<Colours, number> = {
 	blue: 14,
 };
 
-const gameLines = readAndSplitFile("day-two").split("\n");
+const gameLines = readFile("day-2").split("\n");
 
 const invalidGame = (draws: string[][]) =>
 	draws.some((draw) =>

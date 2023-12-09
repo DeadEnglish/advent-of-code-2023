@@ -1,6 +1,6 @@
-import { readAndSplitFile } from "../../helpers/readFile.helper";
+import { readFile } from "../../helpers/readFile.helper";
 
-const games = readAndSplitFile("day-four").split("\n");
+const games = readFile("day-4").split("\n");
 
 const getWinningAndDrawnNumbers = (gameString: string) => {
 	const game = gameString.split(":")[1];

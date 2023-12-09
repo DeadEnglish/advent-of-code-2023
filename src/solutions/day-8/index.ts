@@ -1,6 +1,6 @@
-import { readAndSplitFile } from "../../helpers/readFile.helper";
+import { readFile } from "../../helpers/readFile.helper";
 
-const [directions, map] = readAndSplitFile("day-eight").split("\n\n");
+const [directions, map] = readFile("day-8").split("\n\n");
 const splitDirections = directions.split("");
 const splitMap = map.split("\n");
 

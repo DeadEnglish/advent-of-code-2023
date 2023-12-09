@@ -1,4 +1,4 @@
-import { readAndSplitFile } from "../../helpers/readFile.helper";
+import { readFile } from "../../helpers/readFile.helper";
 
 interface Hand {
 	cardValues: number[];
@@ -6,7 +6,7 @@ interface Hand {
 	rank: number;
 }
 
-const cards = readAndSplitFile("day-seven").split("\n");
+const cards = readFile("day-7").split("\n");
 
 const cardOrder = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"];
 const part2CardOrder = ["J", "2", "3", "4", "5", "6", "7", "8", "9", "T", "Q", "K", "A"];

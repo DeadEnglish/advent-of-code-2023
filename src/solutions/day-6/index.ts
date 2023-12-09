@@ -1,6 +1,6 @@
-import { readAndSplitFile } from "../../helpers/readFile.helper";
+import { readFile } from "../../helpers/readFile.helper";
 
-const races = readAndSplitFile("day-six").split("\n");
+const races = readFile("day-6").split("\n");
 const times = races[0].split(":")[1].split(/\D+/).filter(Boolean).map(Number);
 const distance = races[1].split(":")[1].split(/\D+/).filter(Boolean).map(Number);
 
